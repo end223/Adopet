@@ -13,8 +13,18 @@ class TutorController {
         } catch (error) {
             res.status(400).send({ message: error.message})
         }
-
     }
-}    
+
+    static async buscarTodosTutores(req, res) {
+       const tutores = await tutorService.buscarTodosTutores()
+       try {
+           res.status(200).send(tutores)
+       } catch (error) {
+        res.status(400).send({ message: 'Não encontrado'})
+       }
+
+    }   
+
+}        
 
 module.exports = TutorController

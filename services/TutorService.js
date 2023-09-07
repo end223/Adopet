@@ -30,7 +30,12 @@ class TutorService {
             
         }
 
+    }
 
+    async buscarTodosTutores() {
+        const tutores = await database.tutores.findAll()
+
+        return tutores
     }
 
 }

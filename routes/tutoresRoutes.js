@@ -5,9 +5,9 @@ const router = Router()
 
 router
     .post('/tutores', TutoresController.cadastrar)
-    .get('/tutores')
-    .get('/tutores/id/:id')
-    .put('/tutores/id/:id')
-    .delete('/tutores/id/:id')
+    .get('/tutores', TutoresController.buscarTodosTutores)
+    .get('/tutores/id/:id', TutoresController.buscarTutorPorId) 
+    .put('/tutores/id/:id', TutoresController.atualizarTutor)
+    .delete('/tutores/id/:id', TutoresController.deletarTutor)
 
     module.exports = router
