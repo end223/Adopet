@@ -23,7 +23,18 @@ class TutorController {
         res.status(400).send({ message: 'Não encontrado'})
        }
 
-    }   
+    }
+    
+    static async buscarTutorPorId(req, res) {
+        try {
+            const { id } = req.params
+            const tutor = await tutorService.buscarTutorPorId(id)
+    
+            res.status(200).json(tutor)
+        } catch (error) {
+            res.status(400).send({ message: 'Tutor informado não encontrado'})
+        }
+    }
 
 }        
 

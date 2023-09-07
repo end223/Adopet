@@ -38,6 +38,21 @@ class TutorService {
         return tutores
     }
 
+    async buscarPorId(id) {
+        const tutor = await database.tutores.findOne({
+            where: {
+                id: id
+            }
+        })
+
+        if (!tutor) {
+            throw new Error('Tutor informado não cadastrado')
+        }
+
+        return tutor
+
+    }
+
 }
 
 module.exports = TutorService
