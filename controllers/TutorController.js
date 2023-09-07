@@ -36,6 +36,21 @@ class TutorController {
         }
     }
 
+    static async atualizarTutor(req, res) {
+        const { id } = req.params
+        const { nome, email } = req.body
+
+        try {
+            const tutor = await tutorService.atualizarTutor(id, { nome, email })
+            res.status(200).json(tutor)
+            
+        } catch (error) {
+            res.status(400).send({ message: error.message})
+        }
+    }   
+
+    
+
 }        
 
 module.exports = TutorController

@@ -53,6 +53,22 @@ class TutorService {
 
     }
 
+    async atualizarTutor(dto) {
+        const tutor = await this.buscarTutorPorId(dto.id)
+
+        try {
+            tutor.nome = dto.nome
+            tutor.email = dto.email
+
+            await tutor.save()
+
+            return tutor
+            
+        } catch (error) {
+            throw new Error('Erro ao atualizar tutor!')
+        }
+    }
+
 }
 
 module.exports = TutorService
