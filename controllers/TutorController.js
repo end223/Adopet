@@ -49,7 +49,17 @@ class TutorController {
         }
     }   
 
-    
+    static async deletarTutor(req, res) {
+        const { id } = req.params
+
+        try {
+            await tutorService.deletarTutor(id)
+
+            res.status(200).json({ message: 'Tutor deletado com sucesso'})
+        } catch (error) {
+            res.status(400).send({ message: 'Erro ao deletar Tutor'})
+        }
+    }
 
 }        
 

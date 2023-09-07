@@ -69,6 +69,21 @@ class TutorService {
         }
     }
 
+    async deletarTutor(id) {
+        await this.buscarTutorPorId(id)
+
+        try {
+            await database.tutores.destroy({
+                where: {
+                    id: id
+                }
+            })
+            
+        } catch (error) {
+            throw new Error('Erro ao deletar tutor!')
+        }
+    }
+
 }
 
 module.exports = TutorService
