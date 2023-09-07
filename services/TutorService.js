@@ -9,25 +9,25 @@ class TutorService {
                 email: dto.email
             }
         })
-        
+
         if (tutor) {
             throw new Error('E-mail já cadastrado')
         }
 
         try {
             const senhaHash = await hash(dto.senha, 8)
-    
+
             const novoTutor = await database.tutores.create({
-                id : uuid.v4(),
+                id: uuid.v4(),
                 nome: dto.nome,
                 email: dto.email,
                 senha: senhaHash
             })
-    
+
             return novoTutor
         } catch (error) {
             throw new Error('Erro ao cadastrar Tutor')
-            
+
         }
 
     }
@@ -38,7 +38,7 @@ class TutorService {
         return tutores
     }
 
-    async buscarPorId(id) {
+    async buscarTutorPorId(id) {
         const tutor = await database.tutores.findOne({
             where: {
                 id: id
@@ -55,19 +55,15 @@ class TutorService {
 
     async atualizarTutor(dto) {
         const tutor = await this.buscarTutorPorId(dto.id)
-
         try {
             tutor.nome = dto.nome
             tutor.email = dto.email
-
             await tutor.save()
-
             return tutor
-            
         } catch (error) {
-            throw new Error('Erro ao atualizar tutor!')
+            throw new Error('Erro ao editar tutor!')
         }
-    }
+    }   
 
     async deletarTutor(id) {
         await this.buscarTutorPorId(id)
@@ -78,7 +74,7 @@ class TutorService {
                     id: id
                 }
             })
-            
+
         } catch (error) {
             throw new Error('Erro ao deletar tutor!')
         }
