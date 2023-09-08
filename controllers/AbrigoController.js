@@ -32,7 +32,7 @@ class AbrigoController {
 
             res.status(200).json(abrigo)
         } catch (error) {
-            res.status(400).send({ message: 'Tutor informado não encontrado' })
+            res.status(400).send({ message: 'Abrigo informado não encontrado' })
         }
     }
 

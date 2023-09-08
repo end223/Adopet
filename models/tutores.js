@@ -13,12 +13,37 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  tutores.init({
-    nome: DataTypes.STRING,
-    email: DataTypes.STRING,
-    senha: DataTypes.STRING,
-    telefone: DataTypes.STRING
-  }, {
+  tutores.init(
+    {
+      nome: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+        },
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+        },
+      },
+      senha: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+        },
+      },
+      telefone: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate: {
+          notEmpty: false,
+        },
+      },
+    }, {
     sequelize,
     modelName: 'tutores',
     defaultScope: {

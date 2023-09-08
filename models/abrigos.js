@@ -13,11 +13,30 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  abrigos.init({
-    cidade: DataTypes.STRING,
-    estado: DataTypes.STRING,
-    endereco: DataTypes.STRING
-  }, {
+  abrigos.init(
+    {
+      cidade: {
+        type: DataTypes.STRING,
+        allowNull: false, 
+        validate: {
+          notEmpty: true, 
+        },
+      },
+      estado: {
+        type: DataTypes.STRING,
+        allowNull: false, 
+        validate: {
+          notEmpty: true, 
+        },
+      },
+      endereco: {
+        type: DataTypes.STRING,
+        allowNull: false, 
+        validate: {
+          notEmpty: true, 
+        },
+      },
+    }, {
     sequelize,
     modelName: 'abrigos',
   });
