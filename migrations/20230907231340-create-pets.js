@@ -12,7 +12,7 @@ module.exports = {
       nome: {
         type: Sequelize.STRING
       },
-      descricao: {
+      porte: {
         type: Sequelize.STRING
       },
       adotado: {
@@ -21,6 +21,23 @@ module.exports = {
       idade: {
         type: Sequelize.STRING
       },
+      descricao: {
+        type: Sequelize.STRING
+      },
+      endereco: {
+        type: Sequelize.STRING
+      },
+      abrigos_id: { 
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'abrigos', 
+          key: 'id' 
+        },
+        allowNull: false
+      },
+      imagem: {
+        type: Sequelize.STRING
+      },  
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
