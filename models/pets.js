@@ -1,26 +1,57 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class pets extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+
+      pets.belongsTo(models.abrigos, {
+        foreignKey: 'abrigos_id',
+        as: 'abrigos', 
+      });
     }
   }
-  pets.init({
-    nome: DataTypes.STRING,
-    descricao: DataTypes.STRING,
-    adotado: DataTypes.BOOLEAN,
-    idade: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'pets',
-  });
+  pets.init(
+    {
+      nome: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+        },
+      },
+      porte: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+        },
+      },
+      descricao: DataTypes.STRING,
+      adotado: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      idade: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+        },
+      },
+      abrigos_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          isInt: true,
+        },
+      },
+    },
+    {
+      sequelize,
+      modelName: 'pets',
+    }
+  );
+
   return pets;
 };
