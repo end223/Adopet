@@ -26,7 +26,13 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
         },
       },
-      descricao: DataTypes.STRING,
+      descricao: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+        },
+      },
       adotado: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
