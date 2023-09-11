@@ -1,11 +1,14 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class tutores extends Model {
+  class Tutores extends Model {
     static associate(models) {
+      Tutores.hasMany(models.Adocao, {
+        foreignKey: 'tutor_id'
+      })
     }
   }
-  tutores.init(
+  Tutores.init(
     {
       nome: {
         type: DataTypes.STRING,
@@ -37,11 +40,11 @@ module.exports = (sequelize, DataTypes) => {
       },
     }, {
     sequelize,
-    modelName: 'tutores',
+    modelName: 'Tutores',
     defaultScope: {
       attributes: { 
         exclude: ['senha'] },
     },
   });
-  return tutores;
+  return Tutores;
 };

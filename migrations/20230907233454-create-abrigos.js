@@ -8,13 +8,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      ong: {
+        type: Sequelize.STRING
+      },
       cidade: {
         type: Sequelize.STRING
       },
       estado: {
-        type: Sequelize.STRING
-      },
-      endereco: {
         type: Sequelize.STRING
       },
       createdAt: {

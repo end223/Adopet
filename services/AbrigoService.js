@@ -4,6 +4,7 @@ class AbrigoService {
     async cadastrar(dto) {
         try {
             const abrigo = await database.abrigos.create({
+                ong: dto.ong,
                 cidade: dto.cidade,
                 estado: dto.estado,
                 endereco: dto.endereco
@@ -40,6 +41,7 @@ class AbrigoService {
     async atualizarAbrigo(dto) {
         const abrigo = await this.buscarAbrigoPorId(dto.id)
         try {
+            abrigo.ong = dto.ong
             abrigo.cidade = dto.cidade
             abrigo.estado = dto.estado
             abrigo.endereco = dto.endereco

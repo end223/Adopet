@@ -1,37 +1,35 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-    class adocao extends Model {
+    class Adocao extends Model {
         static associate(models) {
           // Associação com o modelo de animais (pets)
-          adocao.belongsTo(models.pets, {
-            foreignKey: 'animal',
-            as: 'animal',
+          Adocao.belongsTo(models.Pets, {
+            foreignKey: 'pet_id',
           });
     
           // Associação com o modelo de tutores
-          adocao.belongsTo(models.tutores, {
-            foreignKey: 'tutor',
-            as: 'tutor',
+          Adocao.belongsTo(models.Tutores, {
+            foreignKey: 'tutor_id',
           });
         }
       }
     
-      adocao.init(
+      Adocao.init(
         {
           id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
           },
-          animal: {
+          pet_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             validate: {
               notEmpty: true,
             },
           },
-          tutor: {
+          tutor_id: {
             type: DataTypes.UUID,
             allowNull: false,
             validate: {
@@ -39,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
             },
           },
           data: {
-            type: DataTypes.DATE,
+            type: DataTypes.DATEONLY,
             allowNull: false,
             validate: {
               notEmpty: true,
@@ -48,10 +46,10 @@ module.exports = (sequelize, DataTypes) => {
         },
         {
           sequelize,
-          modelName: 'adocao',
+          modelName: 'Adocao',
         }
       );
     
-      return adocao;
+      return Adocao;
       
     };

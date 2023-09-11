@@ -1,26 +1,24 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class pets extends Model {
+  class Pets extends Model {
     static associate(models) {
 
-      pets.belongsTo(models.abrigos, {
+      Pets.belongsTo(models.Abrigos, {
         foreignKey: 'abrigos_id',
-        as: 'abrigos',
-        attributes: ['cidade', 'estado'], 
       });
     }
   }
-  pets.init(
+  Pets.init(
     {
-      nome: {
-        type: DataTypes.STRING,
+      abrigos_id: {
+        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          notEmpty: true,
+          isInt: true,
         },
       },
-      porte: {
+      nome: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
@@ -45,13 +43,6 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
         },
       },
-      abrigos_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-          isInt: true,
-        },
-      },
       endereco: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -69,9 +60,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'pets',
+      modelName: 'Pets',
     }
   );
 
-  return pets;
+  return Pets;
 };

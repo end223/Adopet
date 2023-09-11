@@ -1,18 +1,24 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class abrigos extends Model {
+  class Abrigos extends Model {
 
     static associate(models) {
       
-      abrigos.hasMany(models.pets, {
+      Abrigos.hasMany(models.Pets, {
         foreignKey: 'abrigos_id',
-        as: 'pets',
       });
     }
   }
-  abrigos.init(
+  Abrigos.init(
     {
+      ong: {
+        type: DataTypes.STRING,
+        allowNull: false, 
+        validate: {
+          notEmpty: true, 
+        },
+      },
       cidade: {
         type: DataTypes.STRING,
         allowNull: false, 
@@ -36,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     }, {
     sequelize,
-    modelName: 'abrigos',
+    modelName: 'Abrigos',
   });
-  return abrigos;
+  return Abrigos;
 };

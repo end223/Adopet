@@ -4,10 +4,10 @@ const petService = new PetService()
 
 class PetController {
     static async cadastrar(req, res) {
-        const { nome, porte, adotado, idade, descricao, endereco, abrigos_id, imagem } = req.body
+        const { nome, adotado, idade, descricao, endereco, abrigos_id, imagem } = req.body
 
         try {
-            const pets = await petService.cadastrar({ nome, porte, adotado, idade, descricao, endereco, abrigos_id, imagem })
+            const pets = await petService.cadastrar({ nome, adotado, idade, descricao, endereco, abrigos_id, imagem })
 
             res.status(200).send(pets)
         } catch (error) {
@@ -38,10 +38,10 @@ class PetController {
 
     static async atualizarPet(req, res) {
         const { id } = req.params
-        const { nome, porte, adotado, idade, descricao, endereco, abrigos_id, imagem } = req.body
+        const { nome, adotado, idade, descricao, endereco, abrigos_id, imagem } = req.body
 
         try {
-            const pet = await petService.atualizarPet({ id, nome, porte, adotado, idade, descricao, endereco, abrigos_id, imagem })
+            const pet = await petService.atualizarPet({ id, nome, adotado, idade, descricao, endereco, abrigos_id, imagem })
 
             res.status(200).json(pet)
         } catch (error) {

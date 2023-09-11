@@ -4,13 +4,12 @@ class PetService {
     async cadastrar(dto) {
         try {
             const pet = await database.pets.create({
+                abrigos_id: dto.abrigos_id,
                 nome: dto.nome,
-                porte: dto.porte,
                 adotado: dto.adotado,   
                 idade: dto.idade,
                 descricao: dto.descricao,
                 endereco: dto.endereco,
-                abrigos_id: dto.abrigos_id,
                 imagem: dto.imagem    
             });
 
@@ -44,13 +43,12 @@ class PetService {
     async atualizarPet(dto) {
         const pet = await this.buscarPetPorId(dto.id)
         try {
+            pet.abrigos_id = dto.abrigos_id
             pet.nome = dto.nome
-            pet.porte = dto.porte
             pet.adotado = dto.adotado
             pet.idade = dto.idade
             pet.descricao = dto.descricao
             pet.endereco = dto.endereco
-            pet.abrigos_id = dto.abrigos_id
             pet.imagem = dto.imagem
             await pet.save()
             return pet

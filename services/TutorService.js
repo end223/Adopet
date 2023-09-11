@@ -21,6 +21,7 @@ class TutorService {
                 id: uuid.v4(),
                 nome: dto.nome,
                 email: dto.email,
+                telefone: dto.telefone,
                 senha: senhaHash
             })
 
@@ -58,6 +59,7 @@ class TutorService {
         try {
             tutor.nome = dto.nome
             tutor.email = dto.email
+            tutor.telefone = dto.telefone
             await tutor.save()
             return tutor
         } catch (error) {

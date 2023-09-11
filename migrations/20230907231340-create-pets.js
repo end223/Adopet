@@ -8,10 +8,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      abrigos_id: { 
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Abrigos', 
+          key: 'id' 
+        },
       nome: {
         type: Sequelize.STRING
       },
-      porte: {
+      descricao: {
         type: Sequelize.STRING
       },
       adotado: {
@@ -20,18 +26,9 @@ module.exports = {
       idade: {
         type: Sequelize.STRING
       },
-      descricao: {
-        type: Sequelize.STRING
-      },
       endereco: {
         type: Sequelize.STRING
       },
-      abrigos_id: { 
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'abrigos', 
-          key: 'id' 
-        },
         allowNull: false
       },
       imagem: {

@@ -1,47 +1,40 @@
-
+'use strict';
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Adocao', {
+  up: (queryInterface, Sequelize) => {
+    return queryInterface.createTable('Adocao', {
       id: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        allowNull: false,
         primaryKey: true,
-      },
-      tutor: {
         type: Sequelize.UUID,
-        allowNull: false,
-        references: {
-          model: 'tutores',
-          key: 'id',
-        },
+        defaultValue: Sequelize.UUID
       },
-      animal: {
-        type: Sequelize.INTEGER,
+      pet_id: {
         allowNull: false,
-        references: {
-          model: 'pets',
-          key: 'id',
-        },
+        type: Sequelize.INTEGER,
+        references: { model: 'Pets', key: 'id'}
+      },
+      tutor_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: { model: 'Tutores', key: 'id'}
       },
       data: {
-        type: Sequelize.DATE,
-        allowNull: false,
-        validate: {
-          notEmpty: true,
-        },
+        type: Sequelize.DATEONLY
+      },
+      status: {
+        type: Sequelize.STRING
       },
       createdAt: {
-        type: Sequelize.DATE,
         allowNull: false,
+        type: Sequelize.DATE
       },
       updatedAt: {
-        type: Sequelize.DATE,
         allowNull: false,
-      },
+        type: Sequelize.DATE
+      }
     });
   },
-
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Adocao');
-  },
+  down: (queryInterface, Sequelize) => {
+    return queryInterface.dropTable('Adocao');
+  }
 };
