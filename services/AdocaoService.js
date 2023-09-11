@@ -4,31 +4,31 @@ const uuid = require('uuid');
 class AdocaoService {
     async cadastrar(dto) {
         try {
-            const adocao = await database.adocao.create({
+            const Adocao = await database.Adocao.create({
                 id: uuid.v4(),
                 pet_id: dto.pet_id,
                 tutor_id: dto.tutor_id,
                 data: dto.data
             });
 
-            return adocao;
+            return Adocao;
         } catch (error) {
             throw new Error('Erro ao cadastrar Adoção');
         }
     }
 
     async buscarAdocaoPorId(id) {
-        const adocao = await database.adocao.findOne({
+        const Adocao = await database.Adocao.findOne({
             where: {
                 id: id
             }
         })
 
-        if (!adocao) {
+        if (!Adocao) {
             throw new Error(' Não cadastrado')
         }
 
-        return adocao
+        return Adocao
 
     }
 
@@ -36,7 +36,7 @@ async deletarAdocao(id) {
     await this.buscarAdocaoPorId(id)
 
     try {
-        await database.adocao.destroy({
+        await database.Adocao.destroy({
             where: {
                 id: id
             }

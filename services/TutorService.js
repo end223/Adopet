@@ -4,20 +4,20 @@ const uuid = require('uuid');
 
 class TutorService {
     async cadastrar(dto) {
-        const tutor = await database.tutores.findOne({
+        const Tutor = await database.Tutores.findOne({
             where: {
                 email: dto.email
             }
         })
 
-        if (tutor) {
+        if (Tutor) {
             throw new Error('E-mail já cadastrado')
         }
 
         try {
             const senhaHash = await hash(dto.senha, 8)
 
-            const novoTutor = await database.tutores.create({
+            const novoTutor = await database.Tutores.create({
                 id: uuid.v4(),
                 nome: dto.nome,
                 email: dto.email,
@@ -34,34 +34,34 @@ class TutorService {
     }
 
     async buscarTodosTutores() {
-        const tutores = await database.tutores.findAll()
+        const Tutores = await database.Tutores.findAll()
 
-        return tutores
+        return Tutores
     }
 
     async buscarTutorPorId(id) {
-        const tutor = await database.tutores.findOne({
+        const Tutor = await database.Tutores.findOne({
             where: {
                 id: id
             }
         })
 
-        if (!tutor) {
+        if (!Tutor) {
             throw new Error('Tutor informado não cadastrado')
         }
 
-        return tutor
+        return Tutor
 
     }
 
     async atualizarTutor(dto) {
-        const tutor = await this.buscarTutorPorId(dto.id)
+        const Tutor = await this.buscarTutorPorId(dto.id)
         try {
-            tutor.nome = dto.nome
-            tutor.email = dto.email
-            tutor.telefone = dto.telefone
-            await tutor.save()
-            return tutor
+            Tutor.nome = dto.nome
+            Tutor.email = dto.email
+            Tutor.telefone = dto.telefone
+            await Tutor.save()
+            return Tutor
         } catch (error) {
             throw new Error('Erro ao editar tutor!')
         }
@@ -71,7 +71,7 @@ class TutorService {
         await this.buscarTutorPorId(id)
 
         try {
-            await database.tutores.destroy({
+            await database.Tutores.destroy({
                 where: {
                     id: id
                 }

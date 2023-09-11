@@ -1,4 +1,4 @@
-'use strict';
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Adocao', {
@@ -15,7 +15,7 @@ module.exports = {
       },
       tutor_id: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         references: { model: 'Tutores', key: 'id'}
       },
       data: {

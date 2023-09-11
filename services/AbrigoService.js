@@ -3,14 +3,14 @@ const database = require('../models');
 class AbrigoService {
     async cadastrar(dto) {
         try {
-            const abrigo = await database.abrigos.create({
+            const Abrigo = await database.Abrigos.create({
                 ong: dto.ong,
                 cidade: dto.cidade,
                 estado: dto.estado,
                 endereco: dto.endereco
             });
 
-            return abrigo;
+            return Abrigo;
         } catch (error) {
             throw new Error('Erro ao cadastrar Abrigo');
         }
@@ -18,35 +18,35 @@ class AbrigoService {
 
 
     async buscarTodosAbrigos() {
-        const abrigos = await database.abrigos.findAll()
+        const Abrigos = await database.Abrigos.findAll()
 
-        return abrigos
+        return Abrigos
     }
 
     async buscarAbrigoPorId(id) {
-        const abrigo = await database.abrigos.findOne({
+        const Abrigo = await database.Abrigos.findOne({
             where: {
                 id: id
             }
         })
 
-        if (!abrigo) {
+        if (!Abrigo) {
             throw new Error(' Não cadastrado')
         }
 
-        return abrigo
+        return Abrigo
 
     }
 
     async atualizarAbrigo(dto) {
-        const abrigo = await this.buscarAbrigoPorId(dto.id)
+        const Abrigo = await this.buscarAbrigoPorId(dto.id)
         try {
-            abrigo.ong = dto.ong
-            abrigo.cidade = dto.cidade
-            abrigo.estado = dto.estado
-            abrigo.endereco = dto.endereco
-            await abrigo.save()
-            return abrigo
+            Abrigo.ong = dto.ong
+            Abrigo.cidade = dto.cidade
+            Abrigo.estado = dto.estado
+            Abrigo.endereco = dto.endereco
+            await Abrigo.save()
+            return Abrigo
         } catch (error) {
             throw new Error('Erro ao editar Abrigo!')
         }
@@ -56,7 +56,7 @@ class AbrigoService {
         await this.buscarAbrigoPorId(id)
 
         try {
-            await database.abrigos.destroy({
+            await database.Abrigos.destroy({
                 where: {
                     id: id
                 }
