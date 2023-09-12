@@ -3,12 +3,10 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class Adocao extends Model {
         static associate(models) {
-          // Associação com o modelo de animais (pets)
+          
           Adocao.belongsTo(models.Pets, {
             foreignKey: 'pet_id',
           });
-    
-          // Associação com o modelo de tutores
           Adocao.belongsTo(models.Tutores, {
             foreignKey: 'tutor_id',
           });
@@ -43,10 +41,20 @@ module.exports = (sequelize, DataTypes) => {
               notEmpty: true,
             },
           },
+          status: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+              notEmpty: true,
+            },
+          },
         },
         {
           sequelize,
           modelName: 'Adocao',
+
+          tableName: 'adocao',
+
         }
       );
     

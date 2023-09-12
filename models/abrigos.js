@@ -2,7 +2,6 @@ const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Abrigos extends Model {
-
     static associate(models) {
       
       Abrigos.hasMany(models.Pets, {
@@ -27,13 +26,6 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       estado: {
-        type: DataTypes.STRING,
-        allowNull: false, 
-        validate: {
-          notEmpty: true, 
-        },
-      },
-      endereco: {
         type: DataTypes.STRING,
         allowNull: false, 
         validate: {

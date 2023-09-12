@@ -7,12 +7,11 @@ class AbrigoService {
                 ong: dto.ong,
                 cidade: dto.cidade,
                 estado: dto.estado,
-                endereco: dto.endereco
             });
 
             return Abrigo;
         } catch (error) {
-            throw new Error('Erro ao cadastrar Abrigo');
+            throw new Error(error);
         }
     }
 
@@ -44,7 +43,6 @@ class AbrigoService {
             Abrigo.ong = dto.ong
             Abrigo.cidade = dto.cidade
             Abrigo.estado = dto.estado
-            Abrigo.endereco = dto.endereco
             await Abrigo.save()
             return Abrigo
         } catch (error) {

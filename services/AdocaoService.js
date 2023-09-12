@@ -8,12 +8,13 @@ class AdocaoService {
                 id: uuid.v4(),
                 pet_id: dto.pet_id,
                 tutor_id: dto.tutor_id,
-                data: dto.data
+                data: dto.data,
+                status: dto.status
             });
 
             return Adocao;
         } catch (error) {
-            throw new Error('Erro ao cadastrar Adoção');
+            throw new Error(error);
         }
     }
 

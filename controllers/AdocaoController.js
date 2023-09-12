@@ -1,15 +1,24 @@
-const AdocaoService = require('../services/AbrigoService')
+const AdocaoService = require('../services/AdocaoService')
 
 const adocaoService = new AdocaoService()
 
 class AdocaoController {
     static async cadastrar(req, res) {
-        const { pet_id, tutor_id, data } = req.body
+        const { pet_id, tutor_id, data, status } = req.body
 
         try {
-            const adocao = await adocaoService.cadastrar({ pet_id, tutor_id, data })
+            const adocao = await adocaoService.cadastrar({ pet_id, tutor_id, data, status })
+            const responseData = {
+                adocao: {
+                    id: adocao.id,
+                    pet_id: adocao.pet_id,
+                    tutor_id: adocao.tutor_id,
+                    data: adocao.data,
+                    status: adocao.status
+                }
+            };
 
-            res.status(200).send(adocao)
+            res.status(200).json(responseData);
         } catch (error) {
             res.status(400).send({ message: error.message })
         }
