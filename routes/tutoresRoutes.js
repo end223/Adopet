@@ -1,7 +1,11 @@
 const { Router } = require('express')
 const TutoresController = require('../controllers/TutorController')
+const autenticado = require('../middleware/autenticado')
 
 const router = Router()
+
+router.use(autenticado)
+
 
 router
     .post('/tutores', TutoresController.cadastrar)

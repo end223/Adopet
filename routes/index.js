@@ -8,5 +8,5 @@ const auth = require('./authRoutes')
 
 module.exports = app => {
     app.use(bodyParser.json(), 
-    tutores, abrigos, pets, adocao, auth)
+    auth, tutores, abrigos, pets, adocao)
 }
