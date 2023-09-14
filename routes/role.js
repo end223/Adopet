@@ -5,9 +5,9 @@ const router = Router()
 
 router
     .post('/roles', RoleController.cadastrar)
-    .get('/roles')
-    .get('/roles/:id')
-    .put('/roles/:id')
-    .delete('/roles/:id')
+    .get('/roles', RoleController.buscarTodasRoles)
+    .get('/roles/id/:id', RoleController.buscarRolePorId)
+    .delete('/roles/id/:id', RoleController.deletarRolePorId)
+    .put('/roles/id/:id', RoleController.editarRole)
 
-module.exports = router
+module.exports = router    
