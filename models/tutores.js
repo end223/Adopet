@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         through: models.tutores_permissoes,
         as: 'tutor_permissoes',
         foreignKey: 'tutor_id'
-      })
+      })      
 
       Tutores.hasMany(models.Adocao, {
         foreignKey: 'tutor_id'

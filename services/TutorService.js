@@ -34,13 +34,50 @@ class TutorService {
     }
 
     async buscarTodosTutores() {
-        const Tutores = await database.Tutores.findAll()
+        const Tutores = await database.Tutores.findAll({
+            include: [
+                {
+                    model: database.roles,
+                    as: 'tutor_roles',
+                    attributes: ['id', 'nome', 'descricao'],
+                    through: {
+                        attributes: [],
+                    }
+                },
+                {
+                    model: database.permissoes,
+                    as: 'tutor_permissoes',
+                    attributes: ['id', 'nome', 'descricao'],
+                    through: {
+                        attributes: [],
+                    }
+                }
+            ]
+        })
 
         return Tutores
     }
 
     async buscarTutorPorId(id) {
         const Tutor = await database.Tutores.findOne({
+            include: [
+                {
+                    model: database.roles,
+                    as: 'tutor_roles',
+                    attributes: ['id', 'nome', 'descricao'],
+                    through: {
+                        attributes: [],
+                    }
+                },
+                {
+                    model: database.permissoes,
+                    as: 'tutor_permissoes',
+                    attributes: ['id', 'nome', 'descricao'],
+                    through: {
+                        attributes: [],
+                    }
+                }
+            ],
             where: {
                 id: id
             }

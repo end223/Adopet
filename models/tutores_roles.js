@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   tutores_roles.init({
-    tutores_id: DataTypes.UUID,
+    tutor_id: DataTypes.UUID,
     role_id: DataTypes.UUID
   }, {
     sequelize,
