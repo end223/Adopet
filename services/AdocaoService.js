@@ -18,6 +18,12 @@ class AdocaoService {
         }
     }
 
+    async buscarTodasAdocao() {
+        const Adocao = await database.Adocao.findAll()
+
+        return Adocao
+    }
+
     async buscarAdocaoPorId(id) {
         const Adocao = await database.Adocao.findOne({
             where: {
@@ -26,12 +32,26 @@ class AdocaoService {
         })
 
         if (!Adocao) {
-            throw new Error(' Não cadastrado')
+            throw new Error('Não cadastrada')
         }
 
         return Adocao
 
     }
+
+    async atualizarAdocao(dto) {
+        const Adocao = await this.buscarAdocaoPorId(dto.id)
+        try {
+            Adocao.pet_id = dto.pet_id
+            Adocao.tutor_id = dto.tutor_id
+            Adocao.data = dto.data
+            Adocao.status = dto.status
+            await Adocao.save()
+            return Adocao
+        } catch (error) {
+            throw new Error('Erro ao editar Adocao!')
+        }
+    } 
 
 async deletarAdocao(id) {
     await this.buscarAdocaoPorId(id)

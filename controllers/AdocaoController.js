@@ -24,6 +24,16 @@ class AdocaoController {
         }
     }
 
+    static async buscarTodasAdocao(req, res) {
+        const adocao = await adocaoService.buscarTodasAdocao()
+        try {
+            res.status(200).send(adocao)
+        } catch (error) {
+            res.status(400).send({ message: 'Não encontrado' })
+        }
+
+    }
+
     static async buscarAdocaoPorId(req, res) {
         try {
             const { id } = req.params
@@ -32,6 +42,19 @@ class AdocaoController {
             res.status(200).json(adocao)
         } catch (error) {
             res.status(400).send({ message: 'Adoção informada não encontrada' })
+        }
+    }
+
+    static async atualizarAdocao(req, res) {
+        const { id } = req.params
+        const { pet_id, tutor_id, data, status } = req.body
+
+        try {
+            const adocao = await adocaoService.atualizarAdocao({ id, pet_id, tutor_id, data, status })
+
+            res.status(200).json(adocao)
+        } catch (error) {
+            res.status(400).send({ message: error.message })
         }
     }
 
