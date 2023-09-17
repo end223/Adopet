@@ -5,10 +5,10 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
           
           Adocao.belongsTo(models.Pets, {
-            foreignKey: 'pet_id',
+            foreignKey: 'pet',
           });
           Adocao.belongsTo(models.Tutores, {
-            foreignKey: 'tutor_id',
+            foreignKey: 'tutor',
           });
         }
       }
@@ -20,14 +20,14 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
           },
-          pet_id: {
+          pet: {
             type: DataTypes.INTEGER,
             allowNull: false,
             validate: {
               notEmpty: true,
             },
           },
-          tutor_id: {
+          tutor: {
             type: DataTypes.UUID,
             allowNull: false,
             validate: {

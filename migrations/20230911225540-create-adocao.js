@@ -8,12 +8,12 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUID
       },
-      pet_id: {
+      pet: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: { model: 'Pets', key: 'id'}
       },
-      tutor_id: {
+      tutor: {
         allowNull: false,
         type: Sequelize.UUID,
         references: { model: 'Tutores', key: 'id'}

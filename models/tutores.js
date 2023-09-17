@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       })      
 
       Tutores.hasMany(models.Adocao, {
-        foreignKey: 'tutor_id'
+        foreignKey: 'tutor'
       })
     }
   }

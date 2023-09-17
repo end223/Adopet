@@ -6,8 +6,8 @@ class AdocaoService {
         try {
             const Adocao = await database.Adocao.create({
                 id: uuid.v4(),
-                pet_id: dto.pet_id,
-                tutor_id: dto.tutor_id,
+                pet: dto.pet,
+                tutor: dto.tutor,
                 data: dto.data,
             });
 
@@ -41,8 +41,8 @@ class AdocaoService {
     async atualizarAdocao(dto) {
         const Adocao = await this.buscarAdocaoPorId(dto.id)
         try {
-            Adocao.pet_id = dto.pet_id
-            Adocao.tutor_id = dto.tutor_id
+            Adocao.pet = dto.pet
+            Adocao.tutor = dto.tutor
             Adocao.data = dto.data
             await Adocao.save()
             return Adocao
