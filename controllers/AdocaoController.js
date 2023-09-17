@@ -1,23 +1,28 @@
 const AdocaoService = require('../services/AdocaoService')
+const petService = require('../services/PetService')
 
 const adocaoService = new AdocaoService()
+const PetService = new petService()
+
 
 class AdocaoController {
     static async cadastrar(req, res) {
-        const { pet_id, tutor_id, data, status } = req.body
+        const { pet_id, tutor_id, data } = req.body
 
         try {
-            const adocao = await adocaoService.cadastrar({ pet_id, tutor_id, data, status })
+            const adocao = await adocaoService.cadastrar({ pet_id, tutor_id, data });
+        
+            await PetService.atualizarAdotado(pet_id);
+        
             const responseData = {
                 adocao: {
                     id: adocao.id,
                     pet_id: adocao.pet_id,
                     tutor_id: adocao.tutor_id,
                     data: adocao.data,
-                    status: adocao.status
                 }
             };
-
+        
             res.status(200).json(responseData);
         } catch (error) {
             res.status(400).send({ message: error.message })
@@ -47,10 +52,10 @@ class AdocaoController {
 
     static async atualizarAdocao(req, res) {
         const { id } = req.params
-        const { pet_id, tutor_id, data, status } = req.body
+        const { pet_id, tutor_id, data } = req.body
 
         try {
-            const adocao = await adocaoService.atualizarAdocao({ id, pet_id, tutor_id, data, status })
+            const adocao = await adocaoService.atualizarAdocao({ id, pet_id, tutor_id, data })
 
             res.status(200).json(adocao)
         } catch (error) {
@@ -63,6 +68,8 @@ class AdocaoController {
 
         try {
             await adocaoService.deletarAdocao(id)
+
+            await petService.atualizarAdotadoFalse(adocao.pet_id);
 
             res.status(200).json({ message: 'Adoção detelada com sucesso' })
         } catch (error) {

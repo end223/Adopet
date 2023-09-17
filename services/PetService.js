@@ -20,10 +20,14 @@ class PetService {
     }
 
     async buscarTodosPets() {
-        const Pets = await database.Pets.findAll()
-
-        return Pets
-    }
+        const Pets = await database.Pets.findAll({
+            where: {
+                adotado: false,
+            }
+        });
+    
+        return Pets;
+    }    
 
     async buscarPetPorId(id) {
         const Pet = await database.Pets.findOne({
@@ -55,7 +59,45 @@ class PetService {
         } catch (error) {
             throw new Error('Erro ao editar Pet!')
         }
-    }   
+    }
+    
+    async atualizarAdotado(petId) {
+        try {
+            const pet = await database.Pets.findOne({
+                where: { id: petId },
+            });
+
+            if (!pet) {
+                throw new Error('Pet não encontrado');
+            }
+
+            pet.adotado = true;
+            await pet.save();
+
+            return pet;
+        } catch (error) {
+            throw new Error('Erro ao atualizar adotado do Pet');
+        }
+    }
+
+    async atualizarAdotadoFalse(petId) {
+        try {
+            const pet = await database.Pets.findOne({
+                where: { id: petId },
+            });
+
+            if (!pet) {
+                throw new Error('Pet não encontrado');
+            }
+
+            pet.adotado = false;
+            await pet.save();
+
+            return pet;
+        } catch (error) {
+            throw new Error('Erro ao atualizar adotado do Pet para false');
+        }
+    }
 
     async deletarPet(id) {
         await this.buscarPetPorId(id)

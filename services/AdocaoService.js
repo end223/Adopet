@@ -9,7 +9,6 @@ class AdocaoService {
                 pet_id: dto.pet_id,
                 tutor_id: dto.tutor_id,
                 data: dto.data,
-                status: dto.status
             });
 
             return Adocao;
@@ -45,7 +44,6 @@ class AdocaoService {
             Adocao.pet_id = dto.pet_id
             Adocao.tutor_id = dto.tutor_id
             Adocao.data = dto.data
-            Adocao.status = dto.status
             await Adocao.save()
             return Adocao
         } catch (error) {
