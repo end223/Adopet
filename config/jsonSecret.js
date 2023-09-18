@@ -1,3 +1,5 @@
 module.exports = {
-    secret:"c940b61c49f2a0a1bf3de506ca33a605"
-}
+    secret: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+    refreshSecret: '38816a4bbe78aa3dbff468dc0d08c217df8cc3b4f3c3fd9f139bab84d69dff5c',
+  };
+  

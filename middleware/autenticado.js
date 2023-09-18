@@ -1,27 +1,52 @@
-const { verify, decode } = require ('jsonwebtoken');
-const jsonSecret = require ('../config/jsonSecret.js');
+const { verify, decode, sign } = require('jsonwebtoken');
+const jsonSecret = require('../config/jsonSecret.js');
 
+const validRefreshTokens = new Set();
 
 module.exports = async (req, res, next) => {
-    const token = req.headers.authorization
+  const accessToken = req.headers.authorization;
 
-    if (!token) {
-        return res.status(401).send('Acess token não informado')
+  if (!accessToken) {
+    return res.status(401).send('Acesso não autorizado: AccessToken não informado');
+  }
+
+  const [, accessTokenValue] = accessToken.split(' ');
+
+  try {
+    verify(accessTokenValue, jsonSecret.secret);
+
+    const { id, email } = await decode(accessTokenValue);
+
+    req.tutorId = id;
+    req.tutorEmail = email;
+
+    return next();
+  } catch (error) {
+    const refreshToken = req.cookies.refreshToken; // Recuperando o refreshToken do cookie.
+
+    if (!refreshToken || !validRefreshTokens.has(refreshToken)) {
+      return res.status(401).send('Acesso não autorizado: Token inválido');
     }
-
-    const [, acessToken] = token.split(" ")
 
     try {
-        verify(acessToken, jsonSecret.secret)
+      const decodedRefreshToken = verify(refreshToken, jsonSecret.refreshSecret);
 
-        const { id, email } = await decode(acessToken)
+      const newAccessToken = sign(
+        {
+          id: decodedRefreshToken.id,
+          email: decodedRefreshToken.email,
+        },
+        jsonSecret.secret,
+        {
+          expiresIn: 86400, 
+        }
+      );
 
-        req.tutorId = id
-        req.tutorEmail = email
-        
-        return next()
+      res.setHeader('Authorization', `Bearer ${newAccessToken}`);
 
-    } catch (error) {
-        res.status(401).send('Usuario não autorizado')
+      return next();
+    } catch (refreshTokenError) {
+      return res.status(401).send('Acesso não autorizado: RefreshToken inválido');
     }
-}
+  }
+};
