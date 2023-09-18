@@ -5,7 +5,7 @@ const roles = require('../middleware/roles')
 const router = Router()
 
 router
-    .post('/adocao', AdocaoController.cadastrar)
+    .post('/adocao', roles(["Abrigo"]), AdocaoController.cadastrar)
     .get('/adocao', AdocaoController.buscarTodasAdocao)
     .get('/adocao/id/:id', AdocaoController.buscarAdocaoPorId)
     .put('/adocao/id/:id', roles(["Abrigo"]), AdocaoController.atualizarAdocao)
