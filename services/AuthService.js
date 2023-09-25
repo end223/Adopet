@@ -2,7 +2,7 @@ const database = require('../models');
 const { compare } = require('bcryptjs');
 const { sign } = require('jsonwebtoken');
 const jsonSecret = require('../config/jsonSecret');
-const redisClient = require('../config/redis');
+const redisClient = require('../config/redis'); // Importe um cliente Redis
 
 class AuthService {
     async login(dto) {
@@ -30,7 +30,7 @@ class AuthService {
             },
             jsonSecret.secret,
             {
-                expiresIn: '1d'
+                expiresIn: '1d' 
             }
         );
 
@@ -43,7 +43,7 @@ class AuthService {
         const accessToken = await redisClient.get(`allowlist:${userId}`);
 
         if (accessToken) {
-            await redisClient.set(`blocklist:${userId}`, accessToken, 'EX', 86400);
+            await redisClient.set(`blocklist:${userId}`, accessToken);
             await redisClient.del(`allowlist:${userId}`);
         }
     }

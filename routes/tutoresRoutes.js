@@ -8,7 +8,7 @@ router.use(autenticado)
 
 
 router
-    .post('/tutores', TutoresController.cadastrar)
+    .post('/register', TutoresController.cadastrar)
     .get('/tutores', TutoresController.buscarTodosTutores)
     .get('/tutores/id/:id', TutoresController.buscarTutorPorId) 
     .put('/tutores/id/:id', TutoresController.atualizarTutor)

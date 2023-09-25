@@ -1,30 +1,41 @@
+// controllers/authController.js
 const AuthService = require('../services/AuthService');
+const allowlist = require('../config/allowlist'); 
+const blocklist = require('../config/blocklist'); 
 
 const authService = new AuthService();
 
 class AuthController {
-    static async login(req, res) {
-        const { email, senha } = req.body;
+  static async login(req, res) {
+    const { email, senha } = req.body;
 
-        try {
-            const login = await authService.login({ email, senha });
+    try {
+      const login = await authService.login({ email, senha });
 
-            res.status(200).send(login);
-        } catch (error) {
-            res.status(401).send({ message: error.message });
-        }
+      await allowlist.adicionar(login.accessToken);
+
+      res.status(200).send(login);
+    } catch (error) {
+      res.status(401).send({ message: error.message });
+    }
+  }
+
+  static async logout(req, res) {
+    const token = req.headers.authorization;
+
+    if (!token) {
+      return res.status(401).send('Token de acesso não informado');
     }
 
-    static async logout(req, res) {
-        const userId = req.tutorId;
+    const [, accessToken] = token.split(' ');
 
-        try {
-            await authService.logout(userId);
-            res.status(204).send();
-        } catch (error) {
-            res.status(500).send({ message: 'Erro ao fazer logout' });
-        }
+    try {
+      await blocklist.adicionar(accessToken);
+      res.status(200).send('Logout realizado com sucesso');
+    } catch (error) {
+      res.status(500).send('Erro ao realizar logout');
     }
+  }
 }
 
 module.exports = AuthController;
