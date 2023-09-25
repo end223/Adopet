@@ -8,10 +8,10 @@ const permissoesRoles = require('../middleware/permissoesRoles')
 const router = Router()
 
 router
-    .post('/pets', roles(["Tutor"]), permissoes(["Cadastrar"]), PetController.cadastrar)
+    .post('/pets', roles(["Abrigo"]), permissoes(["Cadastrar"]), PetController.cadastrar)
     .get('/pets', permissoes(["Listar"]), PetController.buscarTodosPets)
     .get('/pets/id/:id', permissoesRoles(["Listar"]), PetController.buscarPetPorId) 
-    .put('/pets/id/:id', roles(["Tutor", "Abrigo"]), permissoes(["Editar"]), PetController.atualizarPet)
-    .delete('/pets/id/:id', roles(["Tutor", "Abrigo"]), permissoes(["Deletar"]), PetController.deletarPet)
+    .put('/pets/id/:id', roles(["Abrigo"]), permissoes(["Editar"]), PetController.atualizarPet)
+    .delete('/pets/id/:id', roles(["Abrigo"]), permissoes(["Deletar"]), PetController.deletarPet)
 
     module.exports = router

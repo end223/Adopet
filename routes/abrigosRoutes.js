@@ -7,10 +7,10 @@ const permissoesRoles = require('../middleware/permissoesRoles')
 const router = Router()
 
 router
-    .post('/abrigos', roles(["Tutor"]), permissoes(["Cadastrar"]), AbrigoController.cadastrar)
+    .post('/abrigos', roles(["Abrigo"]), permissoes(["Cadastrar"]), AbrigoController.cadastrar)
     .get('/abrigos', permissoesRoles(["Listar"]), AbrigoController.buscarTodosAbrigos)
     .get('/abrigos/id/:id', permissoesRoles(["Listar"]), AbrigoController.buscarAbrigoPorId) 
-    .put('/abrigos/id/:id', roles(["Tutor"]), permissoes(["Editar"]), AbrigoController.atualizarAbrigo)
-    .delete('/abrigos/id/:id', roles(["Tutor"]), permissoes(["Deletar"]), AbrigoController.deletarAbrigo)
+    .put('/abrigos/id/:id', roles(["Abrigo"]), permissoes(["Editar"]), AbrigoController.atualizarAbrigo)
+    .delete('/abrigos/id/:id', roles(["Abrigo"]), permissoes(["Deletar"]), AbrigoController.deletarAbrigo)
 
     module.exports = router

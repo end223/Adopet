@@ -1,52 +1,32 @@
-const { verify, decode, sign } = require('jsonwebtoken');
-const jsonSecret = require('../config/jsonSecret.js');
+// middleware/autenticado.js
 
-const validRefreshTokens = new Set();
+const { verify } = require('jsonwebtoken');
+const jsonSecret = require('../config/jsonSecret.js');
+const redisClient = require('../config/redis');
 
 module.exports = async (req, res, next) => {
-  const accessToken = req.headers.authorization;
+    const token = req.headers.authorization;
 
-  if (!accessToken) {
-    return res.status(401).send('Acesso não autorizado: AccessToken não informado');
-  }
-
-  const [, accessTokenValue] = accessToken.split(' ');
-
-  try {
-    verify(accessTokenValue, jsonSecret.secret);
-
-    const { id, email } = await decode(accessTokenValue);
-
-    req.tutorId = id;
-    req.tutorEmail = email;
-
-    return next();
-  } catch (error) {
-    const refreshToken = req.cookies.refreshToken; // Recuperando o refreshToken do cookie.
-
-    if (!refreshToken || !validRefreshTokens.has(refreshToken)) {
-      return res.status(401).send('Acesso não autorizado: Token inválido');
+    if (!token) {
+        return res.status(401).send('Token de acesso não informado');
     }
+
+    const [, accessToken] = token.split(" ");
 
     try {
-      const decodedRefreshToken = verify(refreshToken, jsonSecret.refreshSecret);
+        const decodedToken = verify(accessToken, jsonSecret.secret);
 
-      const newAccessToken = sign(
-        {
-          id: decodedRefreshToken.id,
-          email: decodedRefreshToken.email,
-        },
-        jsonSecret.secret,
-        {
-          expiresIn: 86400, 
+        const isTokenRevoked = await redisClient.exists(`blocklist:${decodedToken.id}`);
+
+        if (isTokenRevoked) {
+            return res.status(401).send('Token revogado');
         }
-      );
 
-      res.setHeader('Authorization', `Bearer ${newAccessToken}`);
+        req.tutorId = decodedToken.id;
+        req.tutorEmail = decodedToken.email;
 
-      return next();
-    } catch (refreshTokenError) {
-      return res.status(401).send('Acesso não autorizado: RefreshToken inválido');
+        return next();
+    } catch (error) {
+        res.status(401).send('Usuário não autorizado');
     }
-  }
-};
+}
