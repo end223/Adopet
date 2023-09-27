@@ -19,15 +19,18 @@ class PetService {
         }
     }
 
-    async buscarTodosPets() {
+    async buscarTodosPets(offset, limit) {
         const Pets = await database.Pets.findAll({
             where: {
                 adotado: false,
-            }
+            },
+            offset: offset,
+            limit: limit,
         });
     
         return Pets;
-    }    
+    }
+        
 
     async buscarPetPorId(id) {
         const Pet = await database.Pets.findOne({

@@ -2,7 +2,7 @@ const database = require('../models');
 const { compare } = require('bcryptjs');
 const { sign, verify } = require('jsonwebtoken');
 const jsonSecret = require('../config/jsonSecret');
-const RefreshTokenService = require('./RefreshTokenService'); // Importe o serviço de refreshToken
+const RefreshTokenService = require('./RefreshTokenService');
 const allowlist = require('../config/allowlist');
 
 class AuthService {
@@ -62,7 +62,7 @@ class AuthService {
       },
       include: [{
         model: database.roles,
-        as: 'tutor_roles', // Change 'Roles' to 'tutor_roles'
+        as: 'tutor_roles', 
       }]
     });
 
@@ -114,10 +114,9 @@ class AuthService {
   }
 
   async refreshAccessToken(refreshToken) {
-    // Verifique o refreshToken
+
     const decoded = this.refreshTokenService.verifyRefreshToken(refreshToken);
 
-    // Gere um novo accessToken usando os dados do refreshToken
     const accessToken = this.generateAccessToken({
       id: decoded.id,
       email: decoded.email,

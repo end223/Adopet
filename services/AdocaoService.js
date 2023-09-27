@@ -17,11 +17,15 @@ class AdocaoService {
         }
     }
 
-    async buscarTodasAdocao() {
-        const Adocao = await database.Adocao.findAll()
-
-        return Adocao
+    async buscarTodasAdocao(offset, limit) {
+        const Adocoes = await database.Adocao.findAll({
+            offset: offset,
+            limit: limit,
+        });
+    
+        return Adocoes;
     }
+    
 
     async buscarAdocaoPorId(id) {
         const Adocao = await database.Adocao.findOne({

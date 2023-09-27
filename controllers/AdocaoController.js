@@ -30,14 +30,26 @@ class AdocaoController {
     }
 
     static async buscarTodasAdocao(req, res) {
-        const adocao = await adocaoService.buscarTodasAdocao()
-        try {
-            res.status(200).send(adocao)
-        } catch (error) {
-            res.status(400).send({ message: 'Não encontrado' })
+        let { page } = req.query;
+        const itemsPerPage = 10;
+    
+        // Defina o valor padrão da página como 1 se não for especificado na query
+        if (!page || isNaN(parseInt(page))) {
+            page = 1;
+        } else {
+            page = parseInt(page);
         }
-
+    
+        const offset = (page - 1) * itemsPerPage;
+    
+        try {
+            const adocoes = await adocaoService.buscarTodasAdocao(offset, itemsPerPage);
+            res.status(200).send(adocoes);
+        } catch (error) {
+            res.status(400).send({ message: 'Não encontrado' });
+        }
     }
+    
 
     static async buscarAdocaoPorId(req, res) {
         try {

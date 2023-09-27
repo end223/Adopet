@@ -33,6 +33,34 @@ class TutorService {
 
     }
 
+    async registrar(dto) {
+        const tutorExistente = await database.Tutores.findOne({
+          where: {
+            email: dto.email,
+          },
+        });
+    
+        if (tutorExistente) {
+          throw new Error('E-mail já cadastrado');
+        }
+    
+        try {
+          const senhaHash = await hash(dto.senha, 8);
+    
+          const novoTutor = await database.Tutores.create({
+            id: uuid.v4(),
+            nome: dto.nome,
+            email: dto.email,
+            telefone: dto.telefone,
+            senha: senhaHash,
+          });
+    
+          return novoTutor;
+        } catch (error) {
+          throw new Error('Erro ao cadastrar Tutor');
+        }
+      }
+
     async buscarTodosTutores() {
         const Tutores = await database.Tutores.findAll({
             include: [

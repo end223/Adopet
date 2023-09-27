@@ -16,14 +16,26 @@ class PetController {
     }
 
     static async buscarTodosPets(req, res) {
-        const pets = await petService.buscarTodosPets()
-        try {
-            res.status(200).send(pets)
-        } catch (error) {
-            res.status(400).send({ message: 'Não encontrado' })
+        let { page } = req.query;
+        const itemsPerPage = 10;
+    
+        // Defina o valor padrão da página como 1 se não for especificado na query
+        if (!page || isNaN(parseInt(page))) {
+            page = 1;
+        } else {
+            page = parseInt(page);
         }
-
+    
+        const offset = (page - 1) * itemsPerPage;
+    
+        try {
+            const pets = await petService.buscarTodosPets(offset, itemsPerPage);
+            res.status(200).send(pets);
+        } catch (error) {
+            res.status(400).send({ message: 'Não encontrado' });
+        }
     }
+      
 
     static async buscarPetPorId(req, res) {
         try {

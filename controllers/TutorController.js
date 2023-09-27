@@ -1,4 +1,7 @@
 const TutorService = require('../services/TutorService')
+const AuthService = require('../services/AuthService');
+
+const authService = new AuthService();
 
 const tutorService = new TutorService()
 
@@ -14,6 +17,21 @@ class TutorController {
             res.status(400).send({ message: error.message })
         }
     }
+
+    static async registrar(req, res) {
+        const { nome, email, senha, telefone } = req.body;
+    
+        try {
+          const novoTutor = await tutorService.registrar({ nome, email, senha, telefone });
+    
+          const login = await authService.login({ email, senha });
+    
+          res.status(201).send({ tutor: novoTutor, login });
+        } catch (error) {
+          res.status(400).send({ message: error.message });
+        }
+      }
+    
 
     static async buscarTodosTutores(req, res) {
         const tutores = await tutorService.buscarTodosTutores()
