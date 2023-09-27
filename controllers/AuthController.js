@@ -20,6 +20,45 @@ class AuthController {
     }
   }
 
+  static async loginAbrigo(req, res) {
+    const { email, senha } = req.body;
+    try {
+      const login = await authService.loginAbrigo({ email, senha });
+
+      await allowlist.adicionar(login.accessToken);
+
+      res.status(200).send(login);
+    } catch (error) {
+      res.status(401).send({ message: error.message });
+    }
+  }
+
+  static async loginTutor(req, res) {
+    const { email, senha } = req.body;
+    try {
+      const login = await authService.loginTutor({ email, senha });
+
+      await allowlist.adicionar(login.accessToken);
+
+      res.status(200).send(login);
+    } catch (error) {
+      res.status(401).send({ message: error.message });
+    }
+  }
+
+
+  static async refreshAccessToken(req, res) {
+    const { refreshToken } = req.body;
+
+    try {
+      const newAccessToken = await authService.refreshAccessToken(refreshToken);
+      res.status(200).send(newAccessToken);
+    } catch (error) {
+      res.status(401).send({ message: error.message });
+    }
+  }
+
+
   static async logout(req, res) {
     const token = req.headers.authorization;
 
