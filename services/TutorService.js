@@ -1,9 +1,11 @@
 const database = require('../models');
 const { hash } = require('bcryptjs');
 const uuid = require('uuid');
+const { validarSenha, validarNome, validarEmail } = require('../config/validacoesComuns')
 
 class TutorService {
     async cadastrar(dto) {
+
         const Tutor = await database.Tutores.findOne({
             where: {
                 email: dto.email
@@ -21,7 +23,6 @@ class TutorService {
                 id: uuid.v4(),
                 nome: dto.nome,
                 email: dto.email,
-                telefone: dto.telefone,
                 senha: senhaHash
             })
 
@@ -34,6 +35,15 @@ class TutorService {
     }
 
     async registrar(dto) {
+
+        if (!validarNome(dto.nome)) {
+            return { message:'O nome deve ter no mínimo 3 e no máximo 25 caracteres'};
+          }
+      
+          if (!validarEmail(dto.email)) {
+            return { message:'Utilize um e-mail válido'};
+          }
+
         const tutorExistente = await database.Tutores.findOne({
           where: {
             email: dto.email,
@@ -41,8 +51,12 @@ class TutorService {
         });
     
         if (tutorExistente) {
-          throw new Error('E-mail já cadastrado');
+            return { message: 'E-mail já cadastrado'};
         }
+        
+        if (dto.senha !== dto.confirmarSenha) {
+            return { message: 'As senhas não coincidem'};
+          }
     
         try {
           const senhaHash = await hash(dto.senha, 8);
@@ -51,13 +65,12 @@ class TutorService {
             id: uuid.v4(),
             nome: dto.nome,
             email: dto.email,
-            telefone: dto.telefone,
             senha: senhaHash,
           });
     
           return novoTutor;
         } catch (error) {
-          throw new Error('Erro ao cadastrar Tutor');
+            return { message:'Erro ao cadastrar Tutor'};
         }
       }
 

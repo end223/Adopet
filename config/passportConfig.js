@@ -4,6 +4,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const { Strategy: BearerStrategy } = require('passport-http-bearer');
 const AuthService = require('../services/AuthService');
 const allowlist = require('./allowlist'); 
+const blocklist = require('./blocklist');
 
 const authService = new AuthService();
 
@@ -40,9 +41,14 @@ passport.use(
 passport.use(
   new BearerStrategy(async (token, done) => {
     try {
+      const isTokenBlocked = await blocklist.verificar(token); 
+      if (isTokenBlocked) {
+        return done(null, false, { message: 'Token inválido' });
+      }
+
       const isTokenAuthorized = await allowlist.verificar(token);
       if (!isTokenAuthorized) {
-        return done(null, false, { message: 'Token inválido' });
+        return done(null, false, { message: 'Token não autorizado' });
       }
 
       const user = await authService.verifyToken(token);

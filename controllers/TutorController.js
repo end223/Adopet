@@ -19,18 +19,26 @@ class TutorController {
     }
 
     static async registrar(req, res) {
-        const { nome, email, senha, telefone } = req.body;
+        const { nome, email, senha, confirmarSenha } = req.body;
     
         try {
-          const novoTutor = await tutorService.registrar({ nome, email, senha, telefone });
+          if (senha !== confirmarSenha) {
+            return res.status(400).send({ message: 'As senhas não coincidem' });
+          }
     
-          const login = await authService.login({ email, senha });
+          const novoTutor = await tutorService.registrar({
+            nome,
+            email,
+            senha,
+            confirmarSenha, // Não é necessário incluir isso aqui, apenas para fins de documentação
+          });
     
-          res.status(201).send({ tutor: novoTutor, login });
+          res.status(201).send( novoTutor );
         } catch (error) {
           res.status(400).send({ message: error.message });
         }
       }
+    
     
 
     static async buscarTodosTutores(req, res) {

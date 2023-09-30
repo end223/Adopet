@@ -8,10 +8,10 @@ const passport = require('../config/passportConfig');
 const router = Router();
 
 router
-    .post('/auth/login', AuthController.login)
+    .post('/auth/login',  AuthController.login)
     .post('/cadastro', TutoresController.registrar)
     .post('/auth/logout', AuthController.logout)
-    .post('/refresh-token', passport.authenticate('bearer', { session: false }), AuthController.refreshAccessToken);
+    .post('/auth/refresh', passport.authenticate('bearer', { session: false }), AuthController.refreshAccessToken);
     
 
     router.post('/auth/login/abrigo', AuthController.loginAbrigo);

@@ -1,3 +1,5 @@
+//services/authservice.js
+
 const database = require('../models');
 const { compare } = require('bcryptjs');
 const { sign, verify } = require('jsonwebtoken');
@@ -18,13 +20,13 @@ class AuthService {
       },
     });
     if (!tutores) {
-      throw new Error('Tutor não cadastrado');
+      return { message: "Tutor não cadastrado" };
     }
 
     const senhasIguais = await compare(dto.senha, tutores.senha);
 
     if (!senhasIguais) {
-      throw new Error('Usuário ou senha inválidos');
+      return { message: "Usuário ou senha inválidos" };
     }
 
     const accessToken = this.generateAccessToken({
@@ -40,9 +42,14 @@ class AuthService {
     await allowlist.adicionar(accessToken);
     await allowlist.adicionar(refreshToken);
 
-
-    return { accessToken, refreshToken };
+    const user = {
+      id: tutores.id,
+      email: tutores.email,
+    };
+  
+    return { user, token: accessToken }; // Retorna um objeto com user e token
   }
+  
 
   async loginAbrigo(dto) {
     dto.role = 'Abrigo';

@@ -1,10 +1,13 @@
 const express = require('express')
 const routes = require('./routes')
 const passport = require('passport');
+const cors = require('cors'); // Importe o pacote cors
 
 
 const app = express()
 const port = 8000
+
+app.use(cors());
 
 app.use(passport.initialize());
 
