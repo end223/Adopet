@@ -64,10 +64,10 @@ class TutorController {
 
     static async atualizarTutor(req, res) {
         const { id } = req.params
-        const { nome, email } = req.body
+        const { nome, telefone } = req.body
 
         try {
-            const tutor = await tutorService.atualizarTutor({ id, nome, email })
+            const tutor = await tutorService.atualizarTutor({ id, nome, telefone })
 
             res.status(200).json(tutor)
         } catch (error) {

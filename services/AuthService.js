@@ -1,4 +1,4 @@
-//services/authservice.js
+// services/authservice.js
 
 const database = require('../models');
 const { compare } = require('bcryptjs');
@@ -47,9 +47,8 @@ class AuthService {
       email: tutores.email,
     };
   
-    return { user, token: accessToken }; // Retorna um objeto com user e token
+    return { user, token: accessToken, refreshToken: refreshToken }; 
   }
-  
 
   async loginAbrigo(dto) {
     dto.role = 'Abrigo';
@@ -70,10 +69,13 @@ class AuthService {
       include: [{
         model: database.roles,
         as: 'tutor_roles', 
+        where: {
+          nome: dto.role,
+        }
       }]
     });
 
-    if (!tutores || !tutores.tutor_roles.some(role => role.nome === dto.role)) {
+    if (!tutores) {
       throw new Error('Tutor não cadastrado ou sem papel adequado');
     }
 
@@ -95,7 +97,7 @@ class AuthService {
 
   generateAccessToken(payload) {
     return sign(payload, jsonSecret.secret, {
-      expiresIn: 86400, // Token válido por 24 horas
+      expiresIn: '24h', 
     });
   }
 
@@ -121,7 +123,6 @@ class AuthService {
   }
 
   async refreshAccessToken(refreshToken) {
-
     const decoded = this.refreshTokenService.verifyRefreshToken(refreshToken);
 
     const accessToken = this.generateAccessToken({

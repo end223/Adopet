@@ -136,7 +136,6 @@ class TutorService {
         const Tutor = await this.buscarTutorPorId(dto.id)
         try {
             Tutor.nome = dto.nome
-            Tutor.email = dto.email
             Tutor.telefone = dto.telefone
             await Tutor.save()
             return Tutor

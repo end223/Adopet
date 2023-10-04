@@ -26,6 +26,9 @@ module.exports = {
       idade: {
         type: Sequelize.STRING
       },
+      porte: {
+        type: Sequelize.STRING
+      },
       endereco: {
         type: Sequelize.STRING
       },

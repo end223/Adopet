@@ -8,9 +8,9 @@ const router = Router()
 
 router
     .post('/abrigos', roles(["Abrigo"]), permissoes(["Cadastrar"]), AbrigoController.cadastrar)
-    .get('/abrigos', permissoesRoles(["Listar"]), AbrigoController.buscarTodosAbrigos)
+    .get('/abrigos', AbrigoController.buscarTodosAbrigos)
     .get('/abrigos/id/:id', permissoesRoles(["Listar"]), AbrigoController.buscarAbrigoPorId) 
-    .put('/abrigos/id/:id', roles(["Abrigo"]), permissoes(["Editar"]), AbrigoController.atualizarAbrigo)
+    .put('/abrigos/id/:id', AbrigoController.atualizarAbrigo)
     .delete('/abrigos/id/:id', roles(["Abrigo"]), permissoes(["Deletar"]), AbrigoController.deletarAbrigo)
 
     module.exports = router

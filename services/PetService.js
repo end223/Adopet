@@ -8,6 +8,7 @@ class PetService {
                 nome: dto.nome,
                 adotado: dto.adotado,   
                 idade: dto.idade,
+                porte: dto.porte,
                 descricao: dto.descricao,
                 endereco: dto.endereco,
                 imagem: dto.imagem    
@@ -30,6 +31,20 @@ class PetService {
     
         return Pets;
     }
+
+    async buscarPetsPorAbrigo(abrigoId, offset, limit) {
+        const Pets = await database.Pets.findAll({
+            where: {
+                abrigos_id: abrigoId, // Filtrar por abrigoId
+                adotado: false,
+            },
+            offset: offset,
+            limit: limit,
+        });
+    
+        return Pets;
+    }
+    
         
 
     async buscarPetPorId(id) {
@@ -54,6 +69,7 @@ class PetService {
             Pet.nome = dto.nome
             Pet.adotado = dto.adotado
             Pet.idade = dto.idade
+            Pet.porte = dto.porte
             Pet.descricao = dto.descricao
             Pet.endereco = dto.endereco
             Pet.imagem = dto.imagem

@@ -7,6 +7,7 @@ class AbrigoService {
                 ong: dto.ong,
                 cidade: dto.cidade,
                 estado: dto.estado,
+                telefone: dto.telefone
             });
 
             return Abrigo;
@@ -43,6 +44,7 @@ class AbrigoService {
             Abrigo.ong = dto.ong
             Abrigo.cidade = dto.cidade
             Abrigo.estado = dto.estado
+            Abrigo.telefone = dto.telefone
             await Abrigo.save()
             return Abrigo
         } catch (error) {

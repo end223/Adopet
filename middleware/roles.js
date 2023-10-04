@@ -2,7 +2,7 @@ const database = require('../models')
 
 const roles = (listaRoles) => {
     return async (req, res, next) => {
-        const { tutorId } = req
+        const { user } = req
 
         const tutor = await database.Tutores.findOne({
             include: [
@@ -13,7 +13,7 @@ const roles = (listaRoles) => {
                 }
             ],
             where: {
-                id: tutorId
+                id: user.id
             }
         })    
         

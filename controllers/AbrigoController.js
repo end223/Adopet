@@ -4,10 +4,10 @@ const abrigoService = new AbrigoService()
 
 class AbrigoController {
     static async cadastrar(req, res) {
-        const { ong, cidade, estado, endereco } = req.body
+        const { ong, cidade, estado, endereco, telefone } = req.body
 
         try {
-            const abrigos = await abrigoService.cadastrar({ ong, cidade, estado, endereco })
+            const abrigos = await abrigoService.cadastrar({ ong, cidade, estado, endereco, telefone })
 
             res.status(200).send(abrigos)
         } catch (error) {
@@ -38,10 +38,10 @@ class AbrigoController {
 
     static async atualizarAbrigo(req, res) {
         const { id } = req.params
-        const { ong, cidade, estado, endereco } = req.body
+        const { ong, cidade, estado, endereco, telefone } = req.body
 
         try {
-            const abrigo = await abrigoService.atualizarAbrigo({ id, ong, cidade, estado, endereco })
+            const abrigo = await abrigoService.atualizarAbrigo({ id, ong, cidade, estado, endereco, telefone })
 
             res.status(200).json(abrigo)
         } catch (error) {

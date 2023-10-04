@@ -43,6 +43,13 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
         },
       },
+      porte: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+        },
+      },
       endereco: {
         type: DataTypes.STRING,
         allowNull: false,

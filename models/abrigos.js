@@ -25,6 +25,13 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true, 
         },
       },
+      telefone: {
+        type: DataTypes.STRING,
+        allowNull: false, 
+        validate: {
+          notEmpty: true, 
+        },
+      },
       estado: {
         type: DataTypes.STRING,
         allowNull: false, 

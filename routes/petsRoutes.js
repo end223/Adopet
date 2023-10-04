@@ -10,9 +10,10 @@ const router = Router()
 
 router
     .post('/pets', roles(["Abrigo"]), permissoes(["Cadastrar"]), PetController.cadastrar)
-    .get('/pets', passport.authenticate('bearer', { session: false }), permissoes(["Listar"]), PetController.buscarTodosPets)
-    .get('/pets/id/:id', permissoesRoles(["Listar"]), PetController.buscarPetPorId) 
-    .put('/pets/id/:id', roles(["Abrigo"]), permissoes(["Editar"]), PetController.atualizarPet)
-    .delete('/pets/id/:id', roles(["Abrigo"]), permissoes(["Deletar"]), PetController.deletarPet)
+    .get('/pets', PetController.buscarTodosPets)
+    .get('/pets/abrigo/:abrigoId', PetController.buscarPetsPorAbrigo)
+    .get('/pets/id/:id', PetController.buscarPetPorId) 
+    .put('/pets/id/:id',  passport.authenticate('bearer', { session: false }),PetController.atualizarPet)
+    .delete('/pets/id/:id',  passport.authenticate('bearer', { session: false }), roles(["Abrigo"]), permissoes(["Deletar"]), PetController.deletarPet)
 
-    module.exports = router
+    module.exports = router 

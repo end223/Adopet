@@ -14,7 +14,7 @@ router
     .post('/auth/refresh', passport.authenticate('bearer', { session: false }), AuthController.refreshAccessToken);
     
 
-    router.post('/auth/login/abrigo', AuthController.loginAbrigo);
-    router.post('/auth/login/tutor', AuthController.loginTutor);   
+    router.post('/login/abrigo', AuthController.loginAbrigo);
+    router.post('/login/tutor', AuthController.loginTutor);   
 
 module.exports = router;
