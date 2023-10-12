@@ -1,7 +1,9 @@
 const database = require('../models');
 const { hash } = require('bcryptjs');
 const uuid = require('uuid');
-const { validarSenha, validarNome, validarEmail } = require('../config/validacoesComuns')
+const { validarNome, validarEmail } = require('../config/validacoesComuns')
+const { sendConfirmationEmail } = require('../config/emailService');
+
 
 class TutorService {
     async cadastrar(dto) {
@@ -17,22 +19,20 @@ class TutorService {
         }
 
         try {
-            const senhaHash = await hash(dto.senha, 8)
-
             const novoTutor = await database.Tutores.create({
-                id: uuid.v4(),
-                nome: dto.nome,
-                email: dto.email,
-                senha: senhaHash
-            })
-
-            return novoTutor
-        } catch (error) {
-            throw new Error('Erro ao cadastrar Tutor')
-
+              id: uuid.v4(),
+              nome: dto.nome,
+              email: dto.email,
+              senha: senhaHash,
+            });
+        
+            await sendConfirmationEmail(novoTutor.id, novoTutor.email);
+        
+            return novoTutor;
+          } catch (error) {
+            return { message: 'Erro ao cadastrar Tutor' };
+          }
         }
-
-    }
 
     async registrar(dto) {
 
@@ -58,21 +58,24 @@ class TutorService {
             return { message: 'As senhas não coincidem'};
           }
     
-        try {
-          const senhaHash = await hash(dto.senha, 8);
-    
-          const novoTutor = await database.Tutores.create({
-            id: uuid.v4(),
-            nome: dto.nome,
-            email: dto.email,
-            senha: senhaHash,
-          });
-    
-          return novoTutor;
-        } catch (error) {
-            return { message:'Erro ao cadastrar Tutor'};
+          try {
+            const senhaHash = await hash(dto.senha, 8);
+        
+            const novoTutor = await database.Tutores.create({
+              id: uuid.v4(),
+              nome: dto.nome,
+              email: dto.email,
+              senha: senhaHash,
+              verificado: false,
+            });
+        
+            sendConfirmationEmail(novoTutor.id, novoTutor.email);
+        
+            return novoTutor;
+          } catch (error) {
+            return { message: 'Erro ao cadastrar Tutor' };
+          }
         }
-      }
 
     async buscarTodosTutores() {
         const Tutores = await database.Tutores.findAll({

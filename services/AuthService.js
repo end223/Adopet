@@ -6,6 +6,7 @@ const { sign, verify } = require('jsonwebtoken');
 const jsonSecret = require('../config/jsonSecret');
 const RefreshTokenService = require('./RefreshTokenService');
 const allowlist = require('../config/allowlist');
+const { sendConfirmationEmail } = require('../config/emailService');
 
 class AuthService {
   constructor() {
@@ -14,13 +15,19 @@ class AuthService {
 
   async login(dto) {
     const tutores = await database.Tutores.findOne({
-      attributes: ['id', 'email', 'senha'],
+      attributes: ['id', 'email', 'senha', 'verificado'],
       where: {
         email: dto.email,
       },
     });
     if (!tutores) {
       return { message: "Tutor não cadastrado" };
+    }
+
+    if (!tutores.verificado) {
+      sendConfirmationEmail(tutores.id, tutores.email);
+
+      return { message: "E-mail não verificado, confirme o cadastro no link enviado para o email." };
     }
 
     const senhasIguais = await compare(dto.senha, tutores.senha);
@@ -76,13 +83,13 @@ class AuthService {
     });
 
     if (!tutores) {
-      throw new Error('Tutor não cadastrado ou sem papel adequado');
+      return { message: "Não cadastrado ou sem papel adequado" };
     }
 
     const senhasIguais = await compare(dto.senha, tutores.senha);
 
     if (!senhasIguais) {
-      throw new Error('Usuário ou senha inválidos');
+      return { message: "Email ou senha inválidos" }
     }
 
     let tokenPayload = {
@@ -90,9 +97,16 @@ class AuthService {
       email: tutores.email,
     }
 
+    const user = {
+      id: tutores.id,
+      email: tutores.email,
+    };
+
     const accessToken = this.generateAccessToken(tokenPayload);
 
-    return { accessToken };
+    await allowlist.adicionar(accessToken);
+
+    return { user, token: accessToken };
   }
 
   generateAccessToken(payload) {
@@ -123,7 +137,7 @@ class AuthService {
   }
 
   async refreshAccessToken(refreshToken) {
-    const decoded = this.refreshTokenService.verifyRefreshToken(refreshToken);
+    const decoded = await this.refreshTokenService.verifyRefreshToken(refreshToken);
 
     const accessToken = this.generateAccessToken({
       id: decoded.id,

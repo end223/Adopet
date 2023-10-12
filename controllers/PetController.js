@@ -17,9 +17,8 @@ class PetController {
 
     static async buscarTodosPets(req, res) {
         let { page } = req.query;
-        const itemsPerPage = 10;
+        const itemsPerPage = 9;
     
-        // Defina o valor padrão da página como 1 se não for especificado na query
         if (!page || isNaN(parseInt(page))) {
             page = 1;
         } else {
@@ -39,9 +38,8 @@ class PetController {
     static async buscarPetsPorAbrigo(req, res) {
         const { abrigoId } = req.params;
         let { page } = req.query;
-        const itemsPerPage = 10;
+        const itemsPerPage = 9;
     
-        // Defina o valor padrão da página como 1 se não for especificado na query
         if (!page || isNaN(parseInt(page))) {
             page = 1;
         } else {

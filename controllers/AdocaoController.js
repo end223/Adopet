@@ -7,10 +7,12 @@ const PetService = new petService()
 
 class AdocaoController {
     static async cadastrar(req, res) {
-        const { pet, tutor, data } = req.body
+        const { pet } = req.body;
+        const tutorId = req.user.id;
+        const data = new Date(); 
 
         try {
-            const adocao = await adocaoService.cadastrar({ pet, tutor, data });
+            const adocao = await adocaoService.cadastrar({ pet, tutor: tutorId, data });
         
             await PetService.atualizarAdotado(pet);
         
@@ -25,7 +27,7 @@ class AdocaoController {
         
             res.status(200).json(responseData);
         } catch (error) {
-            res.status(400).send({ message: error.message })
+            res.status(400).send({ message: error.message });
         }
     }
 
@@ -33,7 +35,6 @@ class AdocaoController {
         let { page } = req.query;
         const itemsPerPage = 10;
     
-        // Defina o valor padrão da página como 1 se não for especificado na query
         if (!page || isNaN(parseInt(page))) {
             page = 1;
         } else {

@@ -16,7 +16,7 @@ class PetService {
 
             return Pet;
         } catch (error) {
-            throw new Error('Error ao cadastrar Pet');
+            return { message: "Não foi possível cadastrar! Todos os campos devem ser preenchidos." };
         }
     }
 
@@ -35,7 +35,7 @@ class PetService {
     async buscarPetsPorAbrigo(abrigoId, offset, limit) {
         const Pets = await database.Pets.findAll({
             where: {
-                abrigos_id: abrigoId, // Filtrar por abrigoId
+                abrigos_id: abrigoId, 
                 adotado: false,
             },
             offset: offset,

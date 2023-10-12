@@ -52,7 +52,7 @@ class AuthController {
     } catch (error) {
       res.status(401).send({ message: error.message });
     }
-  }
+  }  
 
 
   static async logout(req, res) {

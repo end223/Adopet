@@ -1,5 +1,6 @@
 const TutorService = require('../services/TutorService')
 const AuthService = require('../services/AuthService');
+const database = require('../models');
 
 const authService = new AuthService();
 
@@ -30,7 +31,7 @@ class TutorController {
             nome,
             email,
             senha,
-            confirmarSenha, // Não é necessário incluir isso aqui, apenas para fins de documentação
+            confirmarSenha,
           });
     
           res.status(201).send( novoTutor );
@@ -38,6 +39,34 @@ class TutorController {
           res.status(400).send({ message: error.message });
         }
       }
+
+      static async confirmarEmail(req, res) {
+        const { userId } = req.query;
+      
+        try {
+          const usuario = await database.Tutores.findOne({
+            where: {
+              id: userId,
+            },
+          });
+      
+          if (!usuario) {
+            console.error('Usuário não encontrado');
+            return res.status(404).send({ message: 'Usuário não encontrado' });
+          }
+      
+          usuario.verificado = true;
+          await usuario.save();
+      
+          console.log('E-mail confirmado com sucesso');
+          return res.status(200).send({ message: 'E-mail confirmado com sucesso' });
+        } catch (error) {
+          console.error('Erro ao confirmar o e-mail:', error);
+          return res.status(500).send({ message: 'Erro ao confirmar o e-mail' });
+        }
+      }
+      
+    
     
     
 

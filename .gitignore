@@ -2,3 +2,5 @@ node_modules
 seeders
 .env
 /config/jsonSecret.js
+backup-home.js
+backup.js

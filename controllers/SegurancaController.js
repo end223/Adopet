@@ -4,10 +4,10 @@ const segurancaService = new SegurancaService()
 class SegurancaController {
     static async cadastrarAcl(req, res) {
         const { roles, permissoes } = req.body
-        const { tutorId } = req
+        const { user } = req
 
         try {
-            const acl = await segurancaService.cadastrarAcl({ roles, permissoes, tutorId})
+            const acl = await segurancaService.cadastrarAcl({ roles, permissoes }, user.id);
 
             res.status(201).send(acl)
         } catch (error) {

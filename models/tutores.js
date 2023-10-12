@@ -50,6 +50,15 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: false,
         },
       },
+      verificado: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      tokenRedefinicaoSenha: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: null,
+      },
     }, {
     sequelize,
     modelName: 'Tutores',

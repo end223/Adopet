@@ -2,7 +2,7 @@ const database = require('../models')
 const Sequelize = require('sequelize')
 
 class SegurancaService {
-    async cadastrarAcl(dto) {
+    async cadastrarAcl(dto, userId) {
         const Tutores = await database.Tutores.findOne({
             include: [
                 {
@@ -23,7 +23,7 @@ class SegurancaService {
                 }
             ],
             where: {
-                id: dto.tutorId
+                id: userId
             }
         })
 
