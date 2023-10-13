@@ -28,8 +28,10 @@
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^8.0.0",
+    "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",
     "redis": "^4.6.9",
-    "sequelize": "^6.32.1"
+    "sequelize": "^6.33.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"

@@ -11,14 +11,6 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-transporter.verify(function (error, success) {
-  if (error) {
-    console.log('Erro ao verificar a configuração do transporte:', error);
-  } else {
-    console.log('Configuração do transporte verificada com sucesso:', success);
-  }
-});
-
 
 async function sendConfirmationEmail(userId, userEmail) {
   try {
