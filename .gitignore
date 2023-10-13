@@ -4,3 +4,4 @@ seeders
 /config/jsonSecret.js
 backup-home.js
 backup.js
+/config/config.json
