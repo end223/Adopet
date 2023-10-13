@@ -2,14 +2,14 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.addColumn('Tutores', 'verificationToken', {
-      type: Sequelize.STRING, // ou outro tipo apropriado
+    return queryInterface.addColumn('tutores', 'verificationToken', {
+      type: Sequelize.STRING, 
       allowNull: true,
-      defaultValue: null, // Pode ser nulo para começar
+      defaultValue: null, 
     });
   },
 
   down: (queryInterface) => {
-    return queryInterface.removeColumn('Tutores', 'verificationToken');
+    return queryInterface.removeColumn('tutores', 'verificationToken');
   },
 };

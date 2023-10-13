@@ -1,26 +1,26 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class Tutores extends Model {
+  class tutores extends Model {
     static associate(models) {
-      Tutores.belongsToMany(models.roles, {
+      tutores.belongsToMany(models.roles, {
         through: models.tutores_roles,
         as: 'tutor_roles',
         foreignKey: 'tutor_id'
       })
       
-      Tutores.belongsToMany(models.permissoes, {
+      tutores.belongsToMany(models.permissoes, {
         through: models.tutores_permissoes,
         as: 'tutor_permissoes',
         foreignKey: 'tutor_id'
       })      
 
-      Tutores.hasMany(models.Adocao, {
+      tutores.hasMany(models.Adocao, {
         foreignKey: 'tutor'
       })
     }
   }
-  Tutores.init(
+  tutores.init(
     {
       nome: {
         type: DataTypes.STRING,
@@ -62,10 +62,11 @@ module.exports = (sequelize, DataTypes) => {
     }, {
     sequelize,
     modelName: 'Tutores',
+    tableName: 'tutores',
     defaultScope: {
       attributes: { 
         exclude: ['senha'] },
     },
   });
-  return Tutores;
+  return tutores;
 };

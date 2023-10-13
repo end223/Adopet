@@ -2,14 +2,14 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.addColumn('Tutores', 'verificado', {
+    await queryInterface.addColumn('tutores', 'verificado', {
       type: Sequelize.BOOLEAN,
       allowNull: false,
-      defaultValue: false, // Defina o valor padrão como false
+      defaultValue: false, 
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeColumn('Tutores', 'verificado');
+    await queryInterface.removeColumn('tutores', 'verificado');
   }
 };

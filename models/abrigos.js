@@ -1,15 +1,15 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class Abrigos extends Model {
+  class abrigos extends Model {
     static associate(models) {
       
-      Abrigos.hasMany(models.Pets, {
+      abrigos.hasMany(models.Pets, {
         foreignKey: 'abrigos_id',
       });
     }
   }
-  Abrigos.init(
+  abrigos.init(
     {
       ong: {
         type: DataTypes.STRING,
@@ -42,6 +42,7 @@ module.exports = (sequelize, DataTypes) => {
     }, {
     sequelize,
     modelName: 'Abrigos',
+    tableName: 'abrigos',
   });
-  return Abrigos;
+  return abrigos;
 };

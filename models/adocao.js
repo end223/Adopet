@@ -1,19 +1,19 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-    class Adocao extends Model {
+    class adocao extends Model {
         static associate(models) {
           
-          Adocao.belongsTo(models.Pets, {
+          adocao.belongsTo(models.Pets, {
             foreignKey: 'pet',
           });
-          Adocao.belongsTo(models.Tutores, {
+          adocao.belongsTo(models.Tutores, {
             foreignKey: 'tutor',
           });
         }
       }
     
-      Adocao.init(
+      adocao.init(
         {
           id: {
             type: DataTypes.UUID,
@@ -51,6 +51,6 @@ module.exports = (sequelize, DataTypes) => {
         }
       );
     
-      return Adocao;
+      return adocao;
       
     };

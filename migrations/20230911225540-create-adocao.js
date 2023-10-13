@@ -1,7 +1,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Adocao', {
+    return queryInterface.createTable('adocao', {
       id: {
         allowNull: false,
         primaryKey: true,
@@ -11,12 +11,12 @@ module.exports = {
       pet: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: { model: 'Pets', key: 'id'}
+        references: { model: 'pets', key: 'id'}
       },
       tutor: {
         allowNull: false,
         type: Sequelize.UUID,
-        references: { model: 'Tutores', key: 'id'}
+        references: { model: 'tutores', key: 'id'}
       },
       data: {
         type: Sequelize.DATEONLY
@@ -32,6 +32,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Adocao');
+    return queryInterface.dropTable('adocao');
   }
 };

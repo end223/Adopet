@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.addColumn('Tutores', 'tokenRedefinicaoSenha', {
+    return queryInterface.addColumn('tutores', 'tokenRedefinicaoSenha', {
       type: Sequelize.STRING,
       allowNull: true,
       defaultValue: null,
@@ -10,6 +10,6 @@ module.exports = {
   },
 
   down: (queryInterface) => {
-    return queryInterface.removeColumn('Tutores', 'tokenRedefinicaoSenha');
+    return queryInterface.removeColumn('tutores', 'tokenRedefinicaoSenha');
   },
 };

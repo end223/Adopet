@@ -1,15 +1,15 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class Pets extends Model {
+  class pets extends Model {
     static associate(models) {
 
-      Pets.belongsTo(models.Abrigos, {
+      pets.belongsTo(models.Abrigos, {
         foreignKey: 'abrigos_id',
       });
     }
   }
-  Pets.init(
+  pets.init(
     {
       abrigos_id: {
         type: DataTypes.INTEGER,
@@ -68,8 +68,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'Pets',
+      tableName: 'pets',
     }
   );
 
-  return Pets;
+  return pets;
 };
