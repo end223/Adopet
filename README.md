@@ -22,7 +22,9 @@ Você pode saber um pouco mais como funcionam os _challenges_ da Alura visitando
 | 🏷️ Tecnologias |Node.js, Sequelize, MySQL, JavaScript |
 | 🚀 URL         | [**Acesse o site**](https://adopet-react.vercel.app/). Veja os dados de login no item [**⚙️ Como usar**](#howto) |
 | 🔥 Desafio     | [**Protótipo do Figma**](https://www.figma.com/file/TlfkDoIu8uyjZNla1T8TpH/Challenge---Adopet)                 |
-| ⚙️ API    | Veja os detalhes da API no item [**⚙️ Sobre a API**](#howto)                 |
+| ⚙️ API    | Veja os detalhes da API no item [**⚙️ Sobre a API**](#api)                 |
+| ⚙️ API    | Confira a API em: [**API**](https://adopet-api-v5sz.onrender.com)                  |
+
 
 ![](https://raw.githubusercontent.com/sucodelarangela/adopet/main/public/og-image.png#vitrinedev)
 
@@ -72,8 +74,9 @@ Não há aulas específicas para o desafio, por isso devemos desenvolver com o c
 -  Middleware: Passport, Redis, Permissões e Roles.
 -  AcessToken & RefreshToken, allowlist e blocklist.
 -  Validação de cadastro & Redefinição de senha, Rota personalizada para role especifica (Abrigos).
+
   
-<div id="howto">
+<div id="api">
 
 
 <a href='#top'>🔼 Voltar ao topo</a>
