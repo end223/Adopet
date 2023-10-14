@@ -65,8 +65,6 @@ class AuthController {
 
       await allowlist.remover(accessToken);
 
-      await blocklist.adicionar(accessToken);
-
 
       res.status(200).send('Logout realizado com sucesso');
     } catch (error) {

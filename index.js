@@ -10,7 +10,7 @@ const port = process.env.PORT || 3001;
 app.use(cors({
   origin: [
   'https://adopet-spwr.onrender.com',
-  'https://adopet-mm6rzcr19-dontkxsh-gmailcom.vercel.app'
+  'https://adopet-react.vercel.app/'
 ],
 
   methods: 'GET, POST, PUT, DELETE, OPTIONS',
