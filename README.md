@@ -22,6 +22,7 @@ Você pode saber um pouco mais como funcionam os _challenges_ da Alura visitando
 | 🏷️ Tecnologias |Node.js, Sequelize, MySQL, JavaScript |
 | 🚀 URL         | [**Acesse o site**](https://adopet-react.vercel.app/). Veja os dados de login no item [**⚙️ Como usar**](#howto) |
 | 🔥 Desafio     | [**Protótipo do Figma**](https://www.figma.com/file/TlfkDoIu8uyjZNla1T8TpH/Challenge---Adopet)                 |
+| ⚙️ API    | Veja os detalhes da API no item [**⚙️ Sobre a API**](#howto)                 |
 
 ![](https://raw.githubusercontent.com/sucodelarangela/adopet/main/public/og-image.png#vitrinedev)
 
@@ -53,6 +54,8 @@ O Desafio simula um ambiente de trabalho real, com tarefas exigidas pelos tutore
 Não há aulas específicas para o desafio, por isso devemos desenvolver com o conhecimento que temos. Os instrutores preparam um plano de estudos com dicas de conhecimentos que podemos precisar caso precisemos fazer algo e não saibamos exatamente como fazer, mas é nossa responsabilidade buscar e trocar informações com outros desenvolvedores para realizar o trabalho.
 
 
+
+
 ### 📈 Etapas do projeto
 
 -   **Semana 1:** Criação de API e integração com Banco de Dados. Para isso decidi escolher o Node.js, que está sendo o foco atual dos meus estudos.
@@ -60,7 +63,17 @@ Não há aulas específicas para o desafio, por isso devemos desenvolver com o c
 -   **Semana 3:** Funcionalidades de login e segurança, Definição de rotas protegidas, Roles e Permissões, 
 -   **Semana 4:** Autenticação, Integração Front-End com o Back-End, Testes e2e.
 -   **Semana 5 (Extra):** Alterações no Front-end, validando cadastros, deploy.
--   
+
+---
+
+### ⚙️ Sobre a API
+
+-  CRUD Completo.
+-  Middleware: Passport, Redis, Permissões e Roles.
+-  AcessToken & RefreshToken, allowlist e blocklist.
+-  Validação de cadastro & Redefinição de senha, Rota personalizada para role especifica (Abrigos).
+  
+<div id="howto">
 
 
 <a href='#top'>🔼 Voltar ao topo</a>
@@ -128,6 +141,13 @@ There are no specific classes for the challenge, so we must develop with the kno
 - **Week 3:** Login and security features, Defining protected routes, Roles and Permissions,
 - **Week 4:** Authentication, Front-End Integration with Back-End, e2e Testing.
 - **Week 5 (Extra):** Changes to the Front-end, validating registrations, deployment.
+
+### ⚙️ About the API
+
+- Complete CRUD.
+- Middleware: Passport, Redis, Permissions and Roles.
+- AccessToken & RefreshToken, allowlist and blocklist.
+- Registration validation & Password reset, Customized route for specific role (Shelters).
 
 <a href='#top'>🔼 Back to top</a>
 
